@@ -1,0 +1,15 @@
+Configurar o Git Local:
+
+-> Bruno Oller
+    git config --global user.name "BrunoOller"
+    git config --global user.email brunobrunelli4@gmail.com
+
+-> Guilherme Bispo
+    git config --global user.name "Guibis17"
+    git config --global user.email guilherme19.b07@gmail.com
+
+dotnet new mvc -o GCookA
+cd GCook
+
+Baixar :
+Pomelo.EntityFrameworkCore.MySql
