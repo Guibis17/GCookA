@@ -13,3 +13,7 @@ cd GCook
 
 Baixar :
 Pomelo.EntityFrameworkCore.MySql
+
+dotnet ef migrations add InitialCreate
+
+dotnet ef database update
