@@ -1,9 +1,13 @@
 using System.Security.Claims;
-using System.Text;
+using Microsoft.AspNetCore.Identity;
 using GCook.Data;
 using GCook.ViewModels;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using GCook.Helpers;
+using GCook.Models;
 using Microsoft.AspNetCore.WebUtilities;
+using System.Text;
+using System.Text.Encodings.Web;
 
 namespace GCook.Services;
 
@@ -16,8 +20,9 @@ public class UsuarioService : IUsuarioService
     private readonly IUserStore<IdentityUser> _userStore;
     private readonly IUserEmailStore<IdentityUser> _emailStore;
     private readonly IWebHostEnvironment _hostEnvironment;
+    private readonly IEmailSender _emailSender;
     private readonly ILogger<UsuarioService> _logger;
-
+    private SignInManager<IdentityUser> signInManager;
 
     public UsuarioService(
         AppDbContext contexto,
@@ -59,6 +64,69 @@ public class UsuarioService : IUsuarioService
         if (userId == null)
         {
             return null;
+        }
+        var userAccount = await _userManager.FindByIdAsync(userId);
+        var usuario = await _contexto.Usuarios.Where(u => u.UsuarioId == userId).SingleOrDefaultAsync();
+        var perfis = string.Join(", ", await _userManager.GetRolesAsync(userAccount));
+        var admin = await _userManager.IsInRoleAsync(userAccount, "Administrador");
+        UsuarioVM usuarioVM = new()
+        {
+            UsuarioId = userId,
+            Nome = usuario.Nome,
+            DataNascimento = usuario.DataNascimento,
+            Foto = usuario.Foto,
+            Email = userAccount.Email,
+            UserName = userAccount.UserName,
+            Perfil = perfis,
+            IsAdmin = admin
+        };
+        return usuarioVM;
+    }
+
+    public async Task<SignInResult> LoginUsuario(LoginVM login)
+    {
+        string userName = login.Email;
+        if (Helper.IsValidEmail(login.Email))
+        {
+            var user = await _userManager.FindByEmailAsync(login.Email);
+            if (user != null)
+                userName = user.UserName;
+        }
+
+        var result = await _signInManager.PasswordSignInAsync(
+            userName, login.Senha, login.Lembrar, lockoutOnFailure: true
+        );
+
+        if (result.Succeeded)
+            _logger.LogInformation($"Usuário {login.Email} acessou o sistema");
+        if (result.IsLockedOut)
+            _logger.LogWarning($"Usuário {login.Email} está bloqueado");
+        
+        return result;
+    }
+
+    public async Task LogoffUsuario()
+    {
+        _logger.LogInformation($"Usuário {ClaimTypes.Email} fez logoff");
+        await _signInManager.SignOutAsync();
+    }
+
+    public async Task<List<string>> RegistrarUsuario(RegistroVM registro)
+    {
+        var user = Activator.CreateInstance<IdentityUser>();
+
+        await _userStore.SetUserNameAsync(user, registro.Email, CancellationToken.None);
+        await _emailStore.SetEmailAsync(user, registro.Email, CancellationToken.None);
+        var result = await _userManager.CreateAsync(user, registro.Senha);
+
+        if (result.Succeeded)
+        {
+            _logger.LogInformation($"Novo usuário registrado com o email {user.Email}.");
+
+            var userId = await _userManager.GetUserIdAsync(user);
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+            var url = $"https://localhost:5143/Account/ConfirmarEmail?userId={userId}&code={code}";
         }
     }
 }
