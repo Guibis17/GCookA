@@ -22,7 +22,5 @@ public class Comentario
     public DateTime DataComentario { get; set; } = DateTime.Now;
 
     [StringLength(300)]
-
     public string TextoComentario { get; set; }
-    
 }

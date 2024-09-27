@@ -6,11 +6,12 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-string conexao = builder.Configuration.GetConnectionString("Conexao");
-var versao = ServerVersion.AutoDetect(conexao);
+string conn = builder.Configuration.GetConnectionString("Conexao");
+var server = ServerVersion.AutoDetect(conn);
 builder.Services.AddDbContext<AppDbContext>(
-    Options => Options.UseMySql(conexao, versao)
+    opt => opt.UseMySql(conn, server)
 );
+
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(
     opt => opt.SignIn.RequireConfirmedEmail = true
 )

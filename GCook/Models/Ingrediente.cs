@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace GCook.Models;
 
 [Table("Ingrediente")]
-
 public class Ingrediente
 {
     [Key]
@@ -13,6 +12,4 @@ public class Ingrediente
     [Required]
     [StringLength(50)]
     public string Nome { get; set; }
-
-    public ICollection<ReceitaIngrediente> Receitas { get; set; }
 }

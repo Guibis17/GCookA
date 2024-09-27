@@ -123,6 +123,10 @@ public class AppDbSeed
             new Ingrediente() {
                 Id = 13,
                 Nome = "Cheddar"
+            },
+            new Ingrediente() {
+                Id = 14,
+                Nome = "Azeite"
             }
         };
         builder.Entity<Ingrediente>().HasData(ingredientes);
@@ -139,7 +143,13 @@ public class AppDbSeed
                 Rendimento = 3,
                 TempoPreparo = "20 minutos",
                 Foto = "/img/receitas/1.jpg",
-                Preparo = ""
+                Preparo = "Comece pela preparação dos ingredientes, pique os pimentões e a cebola em pequenos cubos, se preferir você também pode usar um processador de alimentos."
+                        + "Coloque a carne moída para fritar em uma panela com um pouco de azeite."
+                        + "Quando a carne moída já não estiver mais crua, adicione os pimentões e a cebola, mexendo bem para misturar todos os ingredientes."
+                        + "Aguarde alguns instante e adicione os temperos, mexendo novamente para misturar."
+                        + "Frite por mais alguns minutos a carne com os demais ingredientes."
+                        + "Adicione o Cream Cheese e o Queijo Cheddar, mexendo bem para evitar que queime o fundo e ajudar os queijos a derreterem."
+                        + "Quando os queijos já estiverem bem derretidos e misturados com os demais ingredientes, sirva acompanhado do Pão Sirio ou de Doritos."
             }
         };
         builder.Entity<Receita>().HasData(receitas);
@@ -206,6 +216,11 @@ public class AppDbSeed
                 ReceitaId = 1,
                 IngredienteId = 13,
                 Quantidade = "200g"
+            },
+            new ReceitaIngrediente() {
+                ReceitaId = 1,
+                IngredienteId = 14,
+                Quantidade = "Um pouco"
             }
         };
         builder.Entity<ReceitaIngrediente>().HasData(receitaIngredientes);
@@ -255,8 +270,8 @@ public class AppDbSeed
         List<Usuario> usuarios = new(){
             new Usuario(){
                 UsuarioId = users[0].Id,
-                Nome = "Bruno Oller Brunelli",
-                DataNascimento = DateTime.Parse("23/01/2007"),
+                Nome = "Matheus Bertolini",
+                DataNascimento = DateTime.Parse("10/01/2007"),
                 Foto = "/img/usuarios/avatar.png"
             }
         };

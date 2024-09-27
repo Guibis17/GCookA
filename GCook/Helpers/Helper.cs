@@ -1,6 +1,5 @@
 using System.Net.Mail;
 
-
 namespace GCook.Helpers;
 
 public static class Helper
@@ -17,5 +16,4 @@ public static class Helper
             return false;
         }
     }
-
 }

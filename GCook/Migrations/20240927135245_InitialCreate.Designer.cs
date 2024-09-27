@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GCook.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240820113051_criar-banco")]
-    partial class criarbanco
+    [Migration("20240927135245_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -235,6 +235,11 @@ namespace GCook.Migrations
                         {
                             Id = 13,
                             Nome = "Cheddar"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Nome = "Azeite"
                         });
                 });
 
@@ -292,7 +297,7 @@ namespace GCook.Migrations
                             Dificuldade = 1,
                             Foto = "/img/receitas/1.jpg",
                             Nome = "Carne Moída Mexicana",
-                            Preparo = "",
+                            Preparo = "Comece pela preparação dos ingredientes, pique os pimentões e a cebola em pequenos cubos, se preferir você também pode usar um processador de alimentos.Coloque a carne moída para fritar em uma panela com um pouco de azeite.Quando a carne moída já não estiver mais crua, adicione os pimentões e a cebola, mexendo bem para misturar todos os ingredientes.Aguarde alguns instante e adicione os temperos, mexendo novamente para misturar.Frite por mais alguns minutos a carne com os demais ingredientes.Adicione o Cream Cheese e o Queijo Cheddar, mexendo bem para evitar que queime o fundo e ajudar os queijos a derreterem.Quando os queijos já estiverem bem derretidos e misturados com os demais ingredientes, sirva acompanhado do Pão Sirio ou de Doritos.",
                             Rendimento = 3,
                             TempoPreparo = "20 minutos"
                         });
@@ -395,6 +400,12 @@ namespace GCook.Migrations
                             ReceitaId = 1,
                             IngredienteId = 13,
                             Quantidade = "200g"
+                        },
+                        new
+                        {
+                            ReceitaId = 1,
+                            IngredienteId = 14,
+                            Quantidade = "Um pouco"
                         });
                 });
 
@@ -423,9 +434,9 @@ namespace GCook.Migrations
                         new
                         {
                             UsuarioId = "ddf093a6-6cb5-4ff7-9a64-83da34aee005",
-                            DataNascimento = new DateTime(2007, 1, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DataNascimento = new DateTime(2007, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Foto = "/img/usuarios/avatar.png",
-                            Nome = "Bruno Oller Brunelli"
+                            Nome = "Matheus Bertolini"
                         });
                 });
 
@@ -568,15 +579,15 @@ namespace GCook.Migrations
                         {
                             Id = "ddf093a6-6cb5-4ff7-9a64-83da34aee005",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "90d33c37-cac0-45ac-ab49-f2c52413d580",
+                            ConcurrencyStamp = "7c867b92-9936-4d6f-b0e3-ebbad6f5aac0",
                             Email = "admin@gcook.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GCOOK.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAELox7SDgdqbMEtKq1pvTZM9lseKW8QiXGBIm4McAecNFnqksZEfJfvr7OfCGRyDqgQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEO7dJ5alifCiV91B0EkK/3hy7lgq9Wir8kUPoz2e0FnXgL5seFMeBiKbqodToS4gMQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e869ab45-e0c7-4db4-ab20-b187ca72c498",
+                            SecurityStamp = "cd0b2062-8164-41a4-98f4-0ba9e71c49d8",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
@@ -713,7 +724,7 @@ namespace GCook.Migrations
             modelBuilder.Entity("GCook.Models.ReceitaIngrediente", b =>
                 {
                     b.HasOne("GCook.Models.Ingrediente", "Ingrediente")
-                        .WithMany("Receitas")
+                        .WithMany()
                         .HasForeignKey("IngredienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -789,11 +800,6 @@ namespace GCook.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("GCook.Models.Ingrediente", b =>
-                {
-                    b.Navigation("Receitas");
                 });
 
             modelBuilder.Entity("GCook.Models.Receita", b =>
