@@ -133,7 +133,7 @@ public class AppDbSeed
         #endregion
 
         #region Populate Receita
-        List<Receita> receitas = new() {
+         List<Receita> receitas = new() {
             new Receita() {
                 Id = 1,
                 Nome = "Carne Moída Mexicana",
@@ -270,8 +270,8 @@ public class AppDbSeed
         List<Usuario> usuarios = new(){
             new Usuario(){
                 UsuarioId = users[0].Id,
-                Nome = "Matheus Bertolini",
-                DataNascimento = DateTime.Parse("10/01/2007"),
+                Nome = "José Francisco Dos Santos Neto",
+                DataNascimento = DateTime.Parse("05/08/1981"),
                 Foto = "/img/usuarios/avatar.png"
             }
         };

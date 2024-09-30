@@ -38,16 +38,19 @@
                 </div>
             </div>
             <div class="col-sm-12 col-md-5 cursor-pointer">
-                <img src="/img/usuarios/no-photo.png" id="PreviewImage" alt="Foto de Avatar" class="w-100 rounded-3" onclick="changeImage()" />
-                <input type="file" asp-for="Foto" accept=".jpg,.jpeg,.png,.gif,.jfif" hidden />
+                <img src="~/img/usuarios/no-photo.png" id="PreviewImage" alt="Foto de Avatar" class="w-100 rounded-3"
+                    onclick="changeImage()" />
+                <div hidden>
+                    <input type="file" asp-for="Foto" accept=".jpg,.jpeg,.png,.gif,.jfif" />
+                </div>
             </div>
         </div>
-        <div class="col-12 p-2 mt-2 mb-3">
+        <div class="col-12 ps-2 mt-2 mb-3">
             <div class="form-check text-white fs-6">
                 <input class="form-check-input text-danger fs-5" asp-for="Termos" onclick="verificarTermos()" />
                 <label class="form-check-label mt-1" asp-for="Termos">
                     Eu concordo com os
-                    <a class="text-danger" href="javascript:void(0);">termos e política de privacidade</a>
+                        <a class="tect-danger" href="javascript:void(0);">termos e politica de privacidade</a>
                 </label>
             </div>
         </div>
@@ -56,18 +59,18 @@
         <p class="mt-3 mb-3 text-white text-center">
             Já possui uma conta?
             <a asp-action="Login" class="text-white fw-bold text-decoration-none">
-                Faça Login Aqui
+                Faça Login aqui
             </a>
         </p>
     </form>
 }
-else
+else 
 {
     <div class="container">
         <div class="text-center text-white mb-4">
             <p class="h5 mb-5">Acesse o email informado para concluir o processo de criação!</p>
             <a asp-action="Login" asp-controller="Account" class="btn btn-danger text-white">Ir para o Login</a>
-            <a asp-action="Index" asp-controller="Home" class="btn btn-primary text-white">Voltar à página inicial</a>
+            <a asp-action="Index" asp-controller="Home" class="btn btn-primary text-white">Voltar a página inicial</a>
         </div>
     </div>
 }
@@ -75,15 +78,15 @@ else
 @section Scripts {
     <script type="text/javascript">
         let mensagemErro = '';
-        $('.validation-summary-errors ul li').each(function () {
+        $(".validation-summary-errors ul li").each(function () {
             mensagemErro += $(this).text() + '<br/>';
         });
         if (mensagemErro != '') {
-            swal.fire({
-                title: 'Acesso Negado',
-                html: mensagemErro,
-                icon: 'error'
-            });
+            swal.fire(
+                'Acesso Negado',
+                mensagemErro,
+                'error'
+            );
         }
 
         function changeImage() {
@@ -96,17 +99,17 @@ else
                     var img = document.getElementById('PreviewImage');
                     img.src = URL.createObjectURL(this.files[0]);
                 }
-            });
+            }); 
         });
 
         function verificarTermos() {
-            let t = document.getElementById('Termos');
-            let s = document.getElementById('submit');
+            let t = document.getElementById("Termos");
+            let s = document.getElementById("submit");
             t.value = t.checked;
             if (t.checked) {
-                s.removeAttribute('disabled');
+                s.removeAttribute("disabled");
             } else {
-                s.setAttribute('disabled', true);
+                s.setAttribute("disabled", true);
             }
         }
     </script>

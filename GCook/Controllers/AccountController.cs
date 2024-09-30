@@ -1,10 +1,8 @@
-using GCook.Services;
 using GCook.ViewModels;
+using GCook.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.Extensions.Logging;
 
-namespace GCook.Controllers;
+namespace GalloFlix.Controllers;
 
 public class AccountController : Controller
 {
@@ -14,8 +12,9 @@ public class AccountController : Controller
     public AccountController(
         ILogger<AccountController> logger,
         IUsuarioService usuarioService
-    )
+        )
     {
+        // Url.Action
         _logger = logger;
         _usuarioService = usuarioService;
     }
@@ -23,25 +22,27 @@ public class AccountController : Controller
     [HttpGet]
     public IActionResult Login(string returnUrl)
     {
-        LoginVM login = new(){
+        LoginVM login = new()
+        {
             UrlRetorno = returnUrl ?? Url.Content("~/")
         };
         return View(login);
     }
 
+    
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Login(LoginVM login)
     {
-        if(ModelState.IsValid)
+        if (ModelState.IsValid)
         {
             var result = await _usuarioService.LoginUsuario(login);
-            if(result.Succeeded)
+            if (result.Succeeded)
                 return LocalRedirect(login.UrlRetorno);
-            if(result.IsLockedOut)
+            if (result.IsLockedOut)
                 return RedirectToAction("Lockout");
-            if(result.IsNotAllowed)
-                ModelState.AddModelError(string.Empty, "Sua conta não está cofirmada, verifique seu email!!");
+            if (result.IsNotAllowed)
+                ModelState.AddModelError(string.Empty, "Sua conta não está confirmada, verifique seu email!!");
             else
                 ModelState.AddModelError(string.Empty, "Usuário e/ou Senha Inválidos!!!");
         }
@@ -52,7 +53,7 @@ public class AccountController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Logout()
     {
-        await _usuarioService.LogoffUsuario();
+       await _usuarioService.LogoffUsuario();
         return RedirectToAction("Index", "Home");
     }
 
@@ -68,14 +69,14 @@ public class AccountController : Controller
     public async Task<IActionResult> Registro(RegistroVM register)
     {
         register.Enviado = false;
-        if(ModelState.IsValid)
+        if (ModelState.IsValid)
         {
             var result = await _usuarioService.RegistrarUsuario(register);
-            if(result != null)
-              foreach (var error in result)
-              {
-                 ModelState.AddModelError(string.Empty, error);
-              }
+            if (result != null)
+                foreach(var error in result)
+                {
+                    ModelState.AddModelError(string.Empty, error);
+                }
             register.Enviado = result == null;
         }
         return View(register);

@@ -9,7 +9,6 @@ public class AppDbContext : IdentityDbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
-        
     }
 
     public DbSet<Categoria> Categorias { get; set; }
@@ -25,6 +24,6 @@ public class AppDbContext : IdentityDbContext
         AppDbSeed seed = new(builder);
 
         builder.Entity<ReceitaIngrediente>()
-            .HasKey(ri => new {ri.ReceitaId, ri.IngredienteId});
+            .HasKey(ri => new { ri.ReceitaId, ri.IngredienteId });
     }
 }

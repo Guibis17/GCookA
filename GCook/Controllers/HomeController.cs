@@ -20,7 +20,8 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        HomeVM home = new(){
+        HomeVM home = new()
+        {
             Categorias = _context.Categorias
                 .Where(c => c.ExibirHome)
                 .AsNoTracking()
@@ -36,6 +37,7 @@ public class HomeController : Controller
 
     public IActionResult Receita(int id)
     {
+
         Receita receita = _context.Receitas
             .Include(r => r.Categoria)
             .Include(r => r.Ingredientes)

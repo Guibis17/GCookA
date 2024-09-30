@@ -360,7 +360,7 @@ namespace GCook.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "ddf093a6-6cb5-4ff7-9a64-83da34aee005", 0, "7c867b92-9936-4d6f-b0e3-ebbad6f5aac0", "admin@gcook.com", true, false, null, "ADMIN@GCOOK.COM", "ADMIN", "AQAAAAIAAYagAAAAEO7dJ5alifCiV91B0EkK/3hy7lgq9Wir8kUPoz2e0FnXgL5seFMeBiKbqodToS4gMQ==", null, false, "cd0b2062-8164-41a4-98f4-0ba9e71c49d8", false, "Admin" });
+                values: new object[] { "ddf093a6-6cb5-4ff7-9a64-83da34aee005", 0, "7f1d699f-8d50-467e-81c5-7949b3f5aa69", "admin@gcook.com", true, false, null, "ADMIN@GCOOK.COM", "ADMIN", "AQAAAAIAAYagAAAAEB5YnGMgKJEFvnsebeBHhZiWXCyjZq3cLbpcsFOp83m+E4x1TKunlJlK46Fv8U8ntw==", null, false, "2012ef49-3f81-4c4e-aea9-3b405cf4c468", false, "Admin" });
 
             migrationBuilder.InsertData(
                 table: "Categoria",
@@ -418,7 +418,7 @@ namespace GCook.Migrations
             migrationBuilder.InsertData(
                 table: "Usuario",
                 columns: new[] { "UsuarioId", "DataNascimento", "Foto", "Nome" },
-                values: new object[] { "ddf093a6-6cb5-4ff7-9a64-83da34aee005", new DateTime(2007, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "/img/usuarios/avatar.png", "Matheus Bertolini" });
+                values: new object[] { "ddf093a6-6cb5-4ff7-9a64-83da34aee005", new DateTime(1981, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "/img/usuarios/avatar.png", "José Francisco Dos Santos Neto" });
 
             migrationBuilder.InsertData(
                 table: "ReceitaIngrediente",

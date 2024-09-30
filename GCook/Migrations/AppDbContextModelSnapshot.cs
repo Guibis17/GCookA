@@ -431,9 +431,9 @@ namespace GCook.Migrations
                         new
                         {
                             UsuarioId = "ddf093a6-6cb5-4ff7-9a64-83da34aee005",
-                            DataNascimento = new DateTime(2007, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DataNascimento = new DateTime(1981, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Foto = "/img/usuarios/avatar.png",
-                            Nome = "Matheus Bertolini"
+                            Nome = "José Francisco Dos Santos Neto"
                         });
                 });
 
@@ -576,15 +576,15 @@ namespace GCook.Migrations
                         {
                             Id = "ddf093a6-6cb5-4ff7-9a64-83da34aee005",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7c867b92-9936-4d6f-b0e3-ebbad6f5aac0",
+                            ConcurrencyStamp = "7f1d699f-8d50-467e-81c5-7949b3f5aa69",
                             Email = "admin@gcook.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GCOOK.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEO7dJ5alifCiV91B0EkK/3hy7lgq9Wir8kUPoz2e0FnXgL5seFMeBiKbqodToS4gMQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEB5YnGMgKJEFvnsebeBHhZiWXCyjZq3cLbpcsFOp83m+E4x1TKunlJlK46Fv8U8ntw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "cd0b2062-8164-41a4-98f4-0ba9e71c49d8",
+                            SecurityStamp = "2012ef49-3f81-4c4e-aea9-3b405cf4c468",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
@@ -721,7 +721,7 @@ namespace GCook.Migrations
             modelBuilder.Entity("GCook.Models.ReceitaIngrediente", b =>
                 {
                     b.HasOne("GCook.Models.Ingrediente", "Ingrediente")
-                        .WithMany()
+                        .WithMany("Receitas")
                         .HasForeignKey("IngredienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -797,6 +797,11 @@ namespace GCook.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("GCook.Models.Ingrediente", b =>
+                {
+                    b.Navigation("Receitas");
                 });
 
             modelBuilder.Entity("GCook.Models.Receita", b =>

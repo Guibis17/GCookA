@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-string conn = builder.Configuration.GetConnectionString("Conexao");
-var server = ServerVersion.AutoDetect(conn);
+string conexao = builder.Configuration.GetConnectionString("Conexao");
+var versao = ServerVersion.AutoDetect(conexao);
 builder.Services.AddDbContext<AppDbContext>(
-    opt => opt.UseMySql(conn, server)
+    Options => Options.UseMySql(conexao, versao)
 );
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(
